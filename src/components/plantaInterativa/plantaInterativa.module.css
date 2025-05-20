@@ -1,0 +1,54 @@
+.container {
+    position: relative;
+    width: 800px;
+    height: 580px;
+    margin: 0 auto;
+  }
+  
+  .imagem {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .comodo {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid #ccc;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .cozinha {
+    top: 0;
+    left: 10px;
+    width: 470px;
+    background-color: rgba(188, 143, 143, 0.534);
+    height: 300px;
+  }
+  
+  .sala {
+    top: 320px;
+    left: 10px;
+    width: 470px;
+    background-color: rgba(255, 0, 0, 0.534);
+    height: 260px;
+  }
+  
+  .quarto {
+    top: 320px;
+    left: 490px;
+    width: 285px;
+    height: 260px;
+    background-color: rgba(0, 255, 0, 0.534);
+  }
+  
+  .banheiro {
+    top: 0;
+    left: 620px;
+    background-color: rgba(0, 0, 255, 0.534);
+    width: 160px;
+    height: 250px;
+  }
+  

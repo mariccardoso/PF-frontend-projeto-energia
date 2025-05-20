@@ -6,6 +6,12 @@
   --cinza: #BABABA;
   --preto: #000;
   --branco: #fff;
+
+  --gradiente: linear-gradient(90deg, #1414c9, #2b00ff, #fb00ff, #ff13cc);
+  --azul-escuro: #1414c9;
+  --azul-claro: #2b00ff;
+  --roxo: #fb00ff;
+  --rosa: #ff13cc;
 }
 
 * {
