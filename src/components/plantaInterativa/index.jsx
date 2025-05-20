@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import styles from './plantaInterativa.module.css';
 import ModalEquipamentos from '../modalEquipamentos';
-import { useEquipamentos } from '../context/EquipamentosContext';
+import { useEquipamentos } from '../../context/equipamentosContext.jsx';
 
 
 const PlantaInterativa = () => {
