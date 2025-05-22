@@ -1,24 +1,33 @@
-import React, { useState } from 'react';
-import styles from './modalEquipamentos.module.css';
+import React, { useEffect, useState } from 'react';
+import styles from './ModalEquipamentos.module.css';
+import EquipmentCard from './EquipmentCard.jsx';
 
 const ModalEquipamentos = ({ isOpen, onClose, comodo }) => {
-  const [equipamento, setEquipamento] = useState({
-    nome: '',
-    potencia: '',
-    tempoUso: '',
-  });
+  const [equipamentos, setEquipamentos] = useState([]);
+  const [tempoUso, setTempoUso] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  const [equipamentosAdicionados, setEquipamentosAdicionados] = useState([]);
+  useEffect(() => {
+    if (isOpen) {
+      fetch(`http://localhost:3000/equipamentos`) // Ajuste para a URL da sua API
+        .then(res => res.json())
+        .then(data => {
+          setEquipamentos(data);
+          setLoading(false);
+        });
+    }
+  }, [isOpen]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEquipamento((prev) => ({ ...prev, [name]: value }));
+  const handleInputChange = (id, tempo) => {
+    setTempoUso(prev => ({ ...prev, [id]: tempo }));
   };
 
-  const adicionarEquipamento = () => {
-    if (!equipamento.nome || !equipamento.potencia || !equipamento.tempoUso) return;
-    setEquipamentosAdicionados((prev) => [...prev, equipamento]);
-    setEquipamento({ nome: '', potencia: '', tempoUso: '' });
+  const adicionarEquipamento = (equipamento) => {
+    const tempo = tempoUso[equipamento.id];
+    if (!tempo) return alert('Informe o tempo de uso');
+
+    // Aqui você enviaria para o backend a associação do equipamento ao cômodo
+    console.log('Adicionar ao cômodo:', comodo, equipamento.nome, tempo + 'h');
   };
 
   if (!isOpen) return null;
@@ -26,42 +35,23 @@ const ModalEquipamentos = ({ isOpen, onClose, comodo }) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <h2>Equipamentos - {comodo}</h2>
-
-        <div className={styles.formulario}>
-          <input
-            type="text"
-            name="nome"
-            placeholder="Nome do equipamento"
-            value={equipamento.nome}
-            onChange={handleChange}
-          />
-          <input
-            type="number"
-            name="potencia"
-            placeholder="Potência (W)"
-            value={equipamento.potencia}
-            onChange={handleChange}
-          />
-          <input
-            type="number"
-            name="tempoUso"
-            placeholder="Tempo de uso (h/dia)"
-            value={equipamento.tempoUso}
-            onChange={handleChange}
-          />
-          <button onClick={adicionarEquipamento}>Adicionar</button>
-        </div>
-
-        <div className={styles.lista}>
-          {equipamentosAdicionados.map((eq, idx) => (
-            <div key={idx} className={styles.itemEquipamento}>
-              <strong>{eq.nome}</strong> - {eq.potencia}W - {eq.tempoUso}h/dia
-            </div>
-          ))}
-        </div>
-
-        <button onClick={onClose} className={styles.fechar}>Fechar</button>
+        <h2>Adicionar Equipamentos - {comodo}</h2>
+        {loading ? (
+          <p>Carregando equipamentos...</p>
+        ) : (
+          <div className={styles.grid}>
+            {equipamentos.map(eq => (
+              <EquipmentCard
+                key={eq.id}
+                equipamento={eq}
+                tempoUso={tempoUso[eq.id] || ''}
+                onChange={handleInputChange}
+                onAdd={() => adicionarEquipamento(eq)}
+              />
+            ))}
+          </div>
+        )}
+        <button className={styles.close} onClick={onClose}>Fechar</button>
       </div>
     </div>
   );

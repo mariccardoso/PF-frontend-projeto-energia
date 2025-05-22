@@ -1,0 +1,53 @@
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.imagem {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.comodo {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(6px);
+  border: 2px solid #ffffffaa;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.comodo:hover {
+  background-color: rgba(255, 255, 255, 0.7);
+  transform: scale(1.05);
+}
+
+/* Cômodos (ajuste conforme a imagem da planta real) */
+.cozinha {
+  top: 10%;
+  left: 5%;
+}
+
+.sala {
+  top: 50%;
+  left: 5%;
+}
+
+.quarto {
+  top: 50%;
+  left: 60%;
+}
+
+.banheiro {
+  top: 10%;
+  left: 75%;
+}
